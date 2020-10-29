@@ -12,8 +12,35 @@ public class practica2 {
      * @return <code>true</code> si las listas son equivalentes. <code>false</code> en caso contrario.
      */
     static public boolean equivalentes(List<String> l1, List<String> l2) {
-       //TODO completa la implmentación
-        return true;
+       if (l1.size() != l2.size()){
+           return false;
+       }else {
+//           for (int i = 0; i < l1.size(); i++){
+//               for (int t = 0; t < l2.size(); t++){
+//                   if (l1.indexOf(l2.get(t)) == -1{
+//                       return false;
+//                   }
+//               }
+//           }
+
+//         SI SE ENCUENTRA UN ELEMENTO QUE ESTA EN L1 EN L2
+//         PASALO A L1 Y ELIMINALO DE L2
+//         SI AL ACABAR EL TAMAÑO DE L1 == L1 + L2 (INICIAL) == TRUE != FALSE
+           int total = l1.size() + l2.size();
+           int num;
+           for (int i = 0; i < l1.size(); i++){
+               num = l2.indexOf(l1.get(i));
+               if (num != -1){
+                    l1.add(l2.get(num));
+                    l2.remove(l2.get(num));
+               }
+           }
+
+           if (total == l1.size()){
+               return true;
+           }
+       }
+        return false;
     }
 
     /** Invierte el orden de los elmentos de una lista.
