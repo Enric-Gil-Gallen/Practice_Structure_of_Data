@@ -32,14 +32,29 @@ public class practica2 {
                num = l2.indexOf(l1.get(i));
                if (num != -1){
                     l1.add(l2.get(num));
-                    l2.remove(l2.get(num));
+                    l2.remove(num);
                }
            }
 
+           System.out.println(total);
+           System.out.println(l1.size());
            if (total == l1.size()){
                return true;
            }
 
+//           int total = l1.size() + l2.size();
+//           int num=0;
+//           for (int i = 0; i < l1.size(); i++){
+//               if (l2.indexOf(l1.get(i)) != -1){
+//                   num++;
+//               }
+//           }
+//
+//           System.out.println(total);
+//           System.out.println(num);
+//           if (total == num){
+//               return true;
+//           }
 
 //         PROBAR USANDO EL METODO CONTAINS -- Por si no se puede de la forma anterior
        }
