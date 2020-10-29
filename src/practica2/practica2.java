@@ -39,6 +39,9 @@ public class practica2 {
            if (total == l1.size()){
                return true;
            }
+
+
+//         PROBAR USANDO EL METODO CONTAINS -- Por si no se puede de la forma anterior
        }
         return false;
     }
