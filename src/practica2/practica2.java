@@ -15,48 +15,18 @@ public class practica2 {
        if (l1.size() != l2.size()){
            return false;
        }else {
-//           for (int i = 0; i < l1.size(); i++){
-//               for (int t = 0; t < l2.size(); t++){
-//                   if (l1.indexOf(l2.get(t)) == -1{
-//                       return false;
-//                   }
-//               }
-//           }
-
-//         SI SE ENCUENTRA UN ELEMENTO QUE ESTA EN L1 EN L2
-//         PASALO A L1 Y ELIMINALO DE L2
-//         SI AL ACABAR EL TAMAÑO DE L1 == L1 + L2 (INICIAL) == TRUE != FALSE
-           int total = l1.size() + l2.size();
+           List<String> copia = new LinkedList<>(l2);
            int num;
            for (int i = 0; i < l1.size(); i++){
-               num = l2.indexOf(l1.get(i));
+               num = copia.indexOf(l1.get(i));
                if (num != -1){
-                    l1.add(l2.get(num));
-                    l2.remove(num);
+                    copia.remove(num);
                }
            }
 
-           System.out.println(total);
-           System.out.println(l1.size());
-           if (total == l1.size()){
+           if (0 == copia.size()){
                return true;
            }
-
-//           int total = l1.size() + l2.size();
-//           int num=0;
-//           for (int i = 0; i < l1.size(); i++){
-//               if (l2.indexOf(l1.get(i)) != -1){
-//                   num++;
-//               }
-//           }
-//
-//           System.out.println(total);
-//           System.out.println(num);
-//           if (total == num){
-//               return true;
-//           }
-
-//         PROBAR USANDO EL METODO CONTAINS -- Por si no se puede de la forma anterior
        }
         return false;
     }
@@ -66,7 +36,15 @@ public class practica2 {
      * @param iter Un iterador de la lista. Puede estar en cualqueir posición de la lista.
      */
     static public void invierte(ListIterator<String> iter) {
-        //TODO completa la implmentación
+        String element;
+        List<String> listaReversa = new ArrayList<String>();
+
+        while (iter.hasPrevious()){ // Recorer el Iterador
+
+            // Añadir los elementos a una lista y borralos del Iterador
+            element = iter.previous();
+
+        }
     }
 
 
@@ -75,7 +53,11 @@ public class practica2 {
      * @return      Una nueva lista con los mismo elementos, pero ordenados.
      */
     static public List<Integer> ordenar(List<Integer> l) {
-        //TODO completa la implmentación
+        ListIterator<Integer> iter = l.listIterator();
+
+        TreeSet<Integer> col = null;
+        col.addAll(l);
+
         return l;
     }
 
