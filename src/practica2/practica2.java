@@ -36,25 +36,25 @@ public class practica2 {
      * @param iter Un iterador de la lista. Puede estar en cualqueir posición de la lista.
      */
     static public void invierte(ListIterator<String> iter) {
-        if (iter.nextIndex() == -1){
-            // Se crear una lista para almacenar los datos al reves
-            LinkedList<String> list = new LinkedList<String>();
+        // Se crear una lista para almacenar los datos al reves
+        LinkedList<String> list = new LinkedList<String>();
 
-            // Dejamos al final el Iterador
-            while (iter.hasNext()) {
-                iter.next();
-            }
-
-            // Recorerla lista de forma inversa y almacenar los datos en la lista
-            while(iter.hasPrevious()){
-                list.add(iter.previous());
-            }
-            // Recorer la lista hacia delante y con el set modificar los datos
-            while (iter.hasNext()){
-                iter.next();
-                iter.set(list.getFirst());
-            }
+        // Dejamos al final el Iterador
+        while (iter.hasNext()) {
+            iter.next();
         }
+
+        // Recorerla lista de forma inversa y almacenar los datos en la lista
+        while(iter.hasPrevious()){
+            list.add(iter.previous());
+        }
+        // Recorer la lista hacia delante y con el set modificar los datos
+        while (iter.hasNext()){
+            iter.next();
+            iter.set(list.getFirst());
+            list.removeFirst();
+        }
+
 
     }
 
