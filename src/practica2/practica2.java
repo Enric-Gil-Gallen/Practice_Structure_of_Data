@@ -39,15 +39,19 @@ public class practica2 {
         // Ir hasta el final
 //        Luego recorer
 
-//        String element;
-//        List<String> listaReversa = new ArrayList<String>();
-//
-//        while (iter.hasPrevious()){ // Recorer el Iterador
-//
-//            // Añadir los elementos a una lista y borralos del Iterador
-//            element = iter.previous();
-//
-//        }
+// Un opcion es tener un elemento que ordenen automanticamente i pasar lo al iteredor
+        String letra_next, letra_next2;
+
+        // Comprovar que la LISTA > 1 de tamaño
+        if (iter.nextIndex() > 0){
+
+            while (iter.hasNext()){
+
+            }
+
+        }
+
+
     }
 
 
