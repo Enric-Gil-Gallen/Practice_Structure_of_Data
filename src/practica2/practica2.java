@@ -36,15 +36,18 @@ public class practica2 {
      * @param iter Un iterador de la lista. Puede estar en cualqueir posición de la lista.
      */
     static public void invierte(ListIterator<String> iter) {
-        String element;
-        List<String> listaReversa = new ArrayList<String>();
+        // Ir hasta el final
+//        Luego recorer
 
-        while (iter.hasPrevious()){ // Recorer el Iterador
-
-            // Añadir los elementos a una lista y borralos del Iterador
-            element = iter.previous();
-
-        }
+//        String element;
+//        List<String> listaReversa = new ArrayList<String>();
+//
+//        while (iter.hasPrevious()){ // Recorer el Iterador
+//
+//            // Añadir los elementos a una lista y borralos del Iterador
+//            element = iter.previous();
+//
+//        }
     }
 
 
@@ -53,12 +56,24 @@ public class practica2 {
      * @return      Una nueva lista con los mismo elementos, pero ordenados.
      */
     static public List<Integer> ordenar(List<Integer> l) {
-        ListIterator<Integer> iter = l.listIterator();
 
-        TreeSet<Integer> col = null;
-        col.addAll(l);
+        // Creo una lista la cual sera la solución y el NUM_L que almacenara el Nº de la 1º lista
+        List<Integer> sol = new LinkedList<Integer>();
 
-        return l;
+        int num_L;
+
+        // Recoro la lista Inicial
+        for (int i = 0; i < l.size(); i++) {
+            num_L = l.get(i);
+
+            int j = 0;
+            while (j < sol.size() && num_L > sol.get(j)) {
+                j++;
+            }
+            sol.add(j, num_L);
+        }
+
+        return sol;
     }
 
 }
