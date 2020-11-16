@@ -44,20 +44,39 @@ public class EDDoubleLinkedList<T> implements List<T> {
         // Comprovar que no este vacia y que size!=1
         if(size != 0 && size !=1){
             // Crear un VALOR de nodo auxiliar
-            T valor = first.data;
-            Node actual = first;
+            T valor_inicio;
+            // Los nodos para hacer el intercambio
+            Node actual, inicio;
+            // Contador por donde empezar
+            int empezar_cont = 0;
+            // Contador donde terminar
+            int finalizar_cont = size-1;
 
-            // Recorer todos los nodos
+            // Dar tantas vuetas como nodas alla
             for (int i = 0; i < size/2; i++){
-                actual.data = actual.next.data;
-                actual = actual.next;
-                actual.data = valor;
 
-                if (actual.next == null){
-                    System.out.println("dsadsnadjhasj");
-                }else {
-                    valor = actual.data;
+                actual = first;
+
+                // Ir hasta la posicion de inicio
+                if (empezar_cont != 0){ // Comprovar que no sea el 1º caso
+                    for (int t =0; t < empezar_cont; empezar_cont++){
+                        actual = actual.next;
+                    }
                 }
+                empezar_cont++;
+
+                //Guardar los datos para sustituir despues
+                inicio = actual;
+                valor_inicio = actual.data;
+
+                // Llegar hasta el final (el que queremos sustituir)
+                for (int a = 0; a < finalizar_cont; a++){
+                    actual = actual.next;
+                }
+                // Camviar datos
+                inicio.data = actual.data;
+                actual.data = valor_inicio;
+                finalizar_cont--;
             }
 
         }
