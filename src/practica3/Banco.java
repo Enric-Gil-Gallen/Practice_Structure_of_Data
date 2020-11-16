@@ -14,7 +14,7 @@ public class Banco {
         }
 
         String clave_Actual = "";
-        Integer saldo_Actual = 0;
+        int saldo_Actual = 0;
 
         // Recorer las 2 Listas
         for (int i = 0; i < codigos.size(); i++) {
@@ -22,10 +22,9 @@ public class Banco {
             // Almacenar los valor actuales
             clave_Actual = codigos.get(i);
             saldo_Actual = saldos.get(i);
-
             //Comprobaciones previas
 
-            if (clave_Actual == null || saldo_Actual==null){
+            if (clave_Actual == null){
                 throw new IllegalArgumentException("Los datos introducidos no son correctos");
             }
             // Comprobar si exite ya, la clave que nos pasan
@@ -56,30 +55,20 @@ public class Banco {
         else {
 
             // Comprobar ¿Ha que cuenta hay que transferirle el dinero ?
-            if (tr.cantidad > 0){
-                // Comprobar que se pueda efectuar la operación
-                if (cuentas.get(tr.origen) < tr.cantidad){
-                    return false;
-                }
-
-                // Traspasar el dinero
-                cuentas.put(tr.origen, cuentas.get(tr.origen) - tr.cantidad);
-                cuentas.put(tr.destino, cuentas.get(tr.destino) + tr.cantidad);
-
-            }
-            else{
-                // Comprobar que se pueda efectuar la operación
-                if (cuentas.get(tr.destino) < tr.cantidad*-1){
-                    return false;
-                }
-
-                // Traspasar el dinero
-                cuentas.put(tr.destino, cuentas.get(tr.destino) - tr.cantidad*-1);
-                cuentas.put(tr.origen, cuentas.get(tr.origen) + tr.cantidad*-1);
-
+            if (tr.cantidad < 0){
+                tr.invertir(); // Cambiar las cuentas
             }
 
-            // GURDAR TRANSFERENCIA ----- ORIGEN
+            // Comprobar que se pueda efectuar la operación
+            if (cuentas.get(tr.origen) < tr.cantidad){
+                return false;
+            }
+
+            // Traspasar el dinero
+            cuentas.put(tr.origen, cuentas.get(tr.origen) - tr.cantidad);
+            cuentas.put(tr.destino, cuentas.get(tr.destino) + tr.cantidad);
+
+            // GURDAR TRANSFERENCIA
 
             //Existe en DESGLOSE
             if (desglose.containsKey(tr.origen)) {
@@ -91,20 +80,6 @@ public class Banco {
                 lista.add(tr);
                 desglose.put(tr.origen, lista);
             }
-
-            // GURDAR TRANSFERENCIA ----- DESTINO
-
-            //Existe en DESGLOSE
-            if (desglose.containsKey(tr.destino)) {
-                desglose.get(tr.destino).add(tr);
-            }
-            // No Existe en DESGLOSE
-            else {
-                List<Transferencia> lista = new ArrayList<>();
-                lista.add(tr);
-                desglose.put(tr.destino, lista);
-            }
-
 
             return true;
         }
@@ -156,7 +131,6 @@ public class Banco {
             // Compruebo el origen y el destino
             if (list_origen.get(i).origen.equals(primera) && list_origen.get(i).destino.equals(segunda)) {
                 System.out.println("----------------------------");
-
                 // Añado si coinciden origen y destino
                 sol.add(list_origen.get(i));
             }
@@ -169,9 +143,8 @@ public class Banco {
             if (list_destino.get(i).origen.equals(segunda) && list_destino.get(i).destino.equals(primera)) {
                 System.out.println("----------------------------");
                 // Añado si coinciden origen y destino
-                list_destino.get(i).invertir();
                 sol.add(list_destino.get(i));
-            }
+                }
         }
 
         return sol;
