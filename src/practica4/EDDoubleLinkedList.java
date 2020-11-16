@@ -86,10 +86,74 @@ public class EDDoubleLinkedList<T> implements List<T> {
      *  Añade los elementos de la lista intercalándolo con la lista actual.
      */
     public void shuffle(List<T> lista) {
-        // TODO Implmentar para la práctica
+        //Comprovar que la lista que nos pasan no este vacia
+        if (lista.size() != 0){
+
+            // Crear datos para implementar los datos
+            Node actual = this.first;
+            T valor;
+
+            // Comprovar que no este vacia y que size!=1
+            if(size == 0){
+                if (lista.size() > 1){
+                    Node n = new Node(lista.get(0));
+                    first = n;
+                    Node actual2 = this.first;
+                    size++;
+
+                    // Añadir el resto de elementos
+                    for (int i = 1; i < lista.size(); i++){
+                        insertAfter(actual2, lista.get(i));
+                        actual2 = actual2.next;
+                    }
+                }
+                else {
+                    insertAfter(actual, lista.get(0));
+                }
+
+            }
+            // Tiene mas elemetos
+            else{
+                // Añadir el resto de elementos
+                for (int i = 0; i < lista.size(); i++){
+
+                    insertAfter(actual, lista.get(i));
+                    actual = actual.next;
+
+                    // Cuando se añde un elemento, y luego en this habian mas hay que avanzar el que he ingresado
+                    if (actual.next != null){
+                        actual = actual.next;
+                    }
+
+                }
+            }
+
+        }
+
     }
 
 
+    private Node insertAfter(Node node, T value){
+        Node n = new Node(value);
+
+        // Insertar en una cadena vacia
+        if (first == null || node == null){
+            first = n;
+        }
+        // Insertar antes de un elemento dado
+        else {
+            // Dar valor a los campos next y prev de los campos que estamos creando
+            n.next = node.next;
+            n.prev = node;
+
+            // Cambiar los enlaces anterior y posterior que queremos insertar
+            node.next = n;
+        }
+
+        size++;
+
+        return n;
+    }
 
     @Override
     public int size() {
@@ -182,6 +246,7 @@ public class EDDoubleLinkedList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
+        insertAfter(first,element);
         throw new UnsupportedOperationException();
     }
 
