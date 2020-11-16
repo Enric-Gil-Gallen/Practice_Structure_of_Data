@@ -43,42 +43,10 @@ public class EDDoubleLinkedList<T> implements List<T> {
     public void reverse() {
         // Comprovar que no este vacia y que size!=1
         if(size != 0 && size !=1){
-            // Crear un VALOR de nodo auxiliar
-            T valor_inicio;
-            // Los nodos para hacer el intercambio
-            Node actual, inicio;
-            // Contador por donde empezar
-            int empezar_cont = 0;
-            // Contador donde terminar
-            int finalizar_cont = size-1;
-
-            // Dar tantas vuetas como nodas alla
-            for (int i = 0; i < size/2; i++){
-
-                actual = first;
-
-                // Ir hasta la posicion de inicio
-                if (empezar_cont != 0){ // Comprovar que no sea el 1º caso
-                    for (int t =0; t < empezar_cont; empezar_cont++){
-                        actual = actual.next;
-                    }
-                }
-                empezar_cont++;
-
-                //Guardar los datos para sustituir despues
-                inicio = actual;
-                valor_inicio = actual.data;
-
-                // Llegar hasta el final (el que queremos sustituir)
-                for (int a = 0; a < finalizar_cont; a++){
-                    actual = actual.next;
-                }
-                // Camviar datos
-                inicio.data = actual.data;
-                actual.data = valor_inicio;
-                finalizar_cont--;
+            int tamaño = size;
+            for (int i = 0; i < tamaño/2; i++){
+                intercambiar(i, tamaño-i);
             }
-
         }
     }
 
@@ -132,7 +100,33 @@ public class EDDoubleLinkedList<T> implements List<T> {
 
     }
 
+    private void intercambiar(int inicio, int fin){
+        // Crear un VALOR de nodo auxiliar
+        T valor_inicio, valor_fin;
 
+        // Los nodos para hacer el intercambio
+        Node actual = first;
+
+        for (int i = 0; i < inicio; i++) {
+            actual = actual.next;
+        }
+        valor_inicio = actual.data;
+
+        actual = first;
+        for (int i = 0; i < fin-1; i++) {
+            actual = actual.next;
+        }
+
+        valor_fin = actual.data;
+        actual.data = valor_inicio;
+
+        actual = first;
+        for (int i = 0; i < inicio; i++) {
+            actual = actual.next;
+        }
+        actual.data = valor_fin;
+
+    }
     private Node insertAfter(Node node, T value){
         Node n = new Node(value);
 
