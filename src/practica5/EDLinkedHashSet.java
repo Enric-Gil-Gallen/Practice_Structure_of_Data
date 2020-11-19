@@ -1,5 +1,7 @@
 package practica5;
 
+import practica4.EDDoubleLinkedList;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
@@ -151,7 +153,24 @@ public class EDLinkedHashSet<T> implements Set<T> {
 
     @Override
     public boolean remove(Object item) {
-        return  true;
+        //Aplicar el HASH
+        int index = hash((T) item);
+
+        // Recorer la tabla
+        while ( used[index]){
+
+            // Comprobar si es
+            if (table[index] != null && item.equals(table[index])){
+                // Eliminar de table
+                table[index].prev.next = table[index].next;
+                table[index].next = table[index].prev;
+                // Cambiar el size
+                size--;
+            }
+            index = (index +1) % table.length;
+        }
+
+        return  false;
     }
 
     @Override
