@@ -157,16 +157,16 @@ public class EDLinkedHashSet<T> implements Set<T> {
         int index = hash((T) item);
 
         // Recorer la tabla
-        while ( used[index]){
+        while (used[index]){
 
             // Comprobar si es
             if (table[index] != null && item.equals(table[index])){
                 // Eliminar de table
-                table[index].prev.next = table[index].next;
-                table[index].next = table[index].prev;
+                table[index].data = null;
                 // Cambiar el size
                 size--;
             }
+            // Avanzar el index
             index = (index +1) % table.length;
         }
 
