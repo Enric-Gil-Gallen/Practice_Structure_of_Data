@@ -180,45 +180,62 @@ public class EDLinkedHashSet<T> implements Set<T> {
         //Aplicar el HASH
         int index = hash((T) item);
 
-        // Recorer la tabla
+        // Encontrar el nodo a borrar
         while (used[index]){
 
             // Comprobar si es el nodo indicado
-            if (table[index] != null && item.equals(table[index])){
-
-                // ELIMINAR DE TABLE
-
-                // El el 1º Nodo y no el único
-                if (size == 0 && first.next != first) {
-
-                    // Crear un nuevo nodo
-                    Node aux = first;
-                    first = first.next;
-                    aux.prev.next = first;
-                    first.prev = aux.prev;
-                }
-                // Solo 1 Nodo
-                else if ( size == 0 ) {
-                    first = null;
-                }
-                // Cualquier Nodo
-                else {
-                    Node aux = table[index];
-
-                    // Desenganchar
-                    aux.next.prev = aux.prev;
-                    aux.prev.next = aux.next;
-                }
-
-                // Cambiar el size
-                size--;
+            if (table[index] != null && item.equals(table[index].data)){
+                break;
             }
 
             // Avanzar el index
             index = (index +1) % table.length;
         }
 
-        return  false;
+        // El Nodo no ha sido encontrado
+        if (!used[index]){
+            return false;
+        }
+
+        // El el 1º Nodo
+        if (first == table[index]) {
+
+            Node aux = first;
+            first = first.next;
+
+            // Comprobar si esta solo
+            if (first == null){
+                last = null;
+            }
+            else {
+                first.prev = null;
+            }
+
+
+        }
+        // Cualquier Nodo
+        else {
+            Node aux = table[index];
+
+            System.out.println(aux.data);
+            System.out.println(last.data);
+            // Es es ultimo elemento
+            if (last == aux){
+                last = aux.prev;
+                aux.prev.next = null;
+            }
+            // Cualquier otro elemento
+            else {
+                aux.next.prev = aux.prev;
+                aux.prev.next = aux.next;
+            }
+
+        }
+        // Cambiar el size
+        size--;
+
+
+        return  true;
     }
 
 
