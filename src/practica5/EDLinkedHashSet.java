@@ -1,7 +1,5 @@
 package practica5;
 
-import practica4.EDDoubleLinkedList;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
@@ -57,7 +55,33 @@ public class EDLinkedHashSet<T> implements Set<T> {
      * <code>rehashThreshold</code> se modifican de forma análoga.
      */
     private void rehash() {
-        // TODO EJERCICIO 2
+        // Comprobar si es necesario duplicar la tabla
+        if (dirty >= rehashThreshold){
+
+            // Crear una copia de la antigua tabla
+            EDLinkedHashSet.Node old[] = table;
+
+            // Crear nueva table x 2
+            table =  new EDLinkedHashSet.Node[old.length *2];
+
+            // Crear nueva used x 2
+            used = new boolean[old.length * 2];
+
+            // Actualiza los parametros
+            rehashThreshold =  rehashThreshold*2;
+            size = 0;
+            dirty = 0;
+
+            // Recorrer la lista
+            Node actual = first;
+            first = last = null;
+
+            while (actual != null){
+                add(actual.data);
+                actual = actual.next;
+            }
+
+        }
     }
 
     @Override
@@ -159,19 +183,44 @@ public class EDLinkedHashSet<T> implements Set<T> {
         // Recorer la tabla
         while (used[index]){
 
-            // Comprobar si es
+            // Comprobar si es el nodo indicado
             if (table[index] != null && item.equals(table[index])){
-                // Eliminar de table
-                table[index].data = null;
+
+                // ELIMINAR DE TABLE
+
+                // El el 1º Nodo y no el único
+                if (size == 0 && first.next != first) {
+
+                    // Crear un nuevo nodo
+                    Node aux = first;
+                    first = first.next;
+                    aux.prev.next = first;
+                    first.prev = aux.prev;
+                }
+                // Solo 1 Nodo
+                else if ( size == 0 ) {
+                    first = null;
+                }
+                // Cualquier Nodo
+                else {
+                    Node aux = table[index];
+
+                    // Desenganchar
+                    aux.next.prev = aux.prev;
+                    aux.prev.next = aux.next;
+                }
+
                 // Cambiar el size
                 size--;
             }
+
             // Avanzar el index
             index = (index +1) % table.length;
         }
 
         return  false;
     }
+
 
     @Override
     public boolean containsAll(Collection<?> c) { throw new UnsupportedOperationException(); }
